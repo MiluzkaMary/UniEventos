@@ -3,16 +3,16 @@ package co.edu.uniquindio.unieventos.model.vo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 
 
 @AllArgsConstructor
 @Getter
 @Setter
-public class Usuario {
+public class DetalleCarrito {
 
-    private String id;
-    private String cedula;
-    private String nombre;
-    private String telefono;
-    private String direccion;
+    private ObjectId idEvento;
+    private int cantidad;
+    private String nombreLocalidad;
+
 }

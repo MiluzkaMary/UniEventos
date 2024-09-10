@@ -4,15 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 
 @AllArgsConstructor
 @Getter
 @Setter
-public class Usuario {
+public class CodigoValidacion {
 
-    private String id;
-    private String cedula;
-    private String nombre;
-    private String telefono;
-    private String direccion;
+    private LocalDateTime fecha;
+    private String codigo;
 }

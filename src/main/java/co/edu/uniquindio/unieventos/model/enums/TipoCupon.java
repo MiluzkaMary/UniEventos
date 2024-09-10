@@ -1,7 +1,7 @@
 package co.edu.uniquindio.unieventos.model.enums;
 
-public enum EstadoEvento {
+public enum TipoCupon {
 
-    ACTIVO,
-    INACTIVO
+    MULTIPLE,
+    UNICO
 }

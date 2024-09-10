@@ -8,11 +8,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Usuario {
+public class Localidad {
 
-    private String id;
-    private String cedula;
     private String nombre;
-    private String telefono;
-    private String direccion;
+    private double precio;
+    private int capacidadMaxima;
+    private int capacidadDisponible;
 }

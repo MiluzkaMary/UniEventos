@@ -2,6 +2,7 @@ package co.edu.uniquindio.unieventos.model.documents;
 
 import co.edu.uniquindio.unieventos.model.enums.EstadoCuenta;
 import co.edu.uniquindio.unieventos.model.enums.Rol;
+import co.edu.uniquindio.unieventos.model.vo.CodigoValidacion;
 import co.edu.uniquindio.unieventos.model.vo.Usuario;
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -26,18 +27,20 @@ public class Cuenta {
     private String password;
     private Rol rol;
     private LocalDateTime fechaRegistro;
+    private LocalDateTime fechaNacimiento;
     private Usuario usuario;
     private EstadoCuenta estado;
-    private String codigoValidacionRegistro;
-    private String codigoValidacionPassword;
+    private CodigoValidacion codigoValidacionRegistro;
+    private CodigoValidacion codigoValidacionPassword;
 
     @Builder
-    public Cuenta(String correo, String password, Rol rol, LocalDateTime fechaRegistro,Usuario usuario, EstadoCuenta estado, String codigoValidacionRegistro, String codigoValidacionPassword){
+    public Cuenta(String correo, String password, Rol rol, LocalDateTime fechaRegistro, LocalDateTime fechaNacimiento, Usuario usuario, EstadoCuenta estado, CodigoValidacion codigoValidacionRegistro, CodigoValidacion codigoValidacionPassword){
 
         this.correo=correo;
         this.password=password;
         this.rol=rol;
         this.fechaRegistro=fechaRegistro;
+        this.fechaNacimiento=fechaNacimiento;
         this.usuario=usuario;
         this.estado=estado;
         this.codigoValidacionRegistro=codigoValidacionRegistro;

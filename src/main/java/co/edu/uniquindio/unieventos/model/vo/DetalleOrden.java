@@ -8,11 +8,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Usuario {
+public class DetalleOrden {
 
     private String id;
-    private String cedula;
-    private String nombre;
-    private String telefono;
-    private String direccion;
+    private String idEvento;
+    private int cantidad;
+    private String nombreLocalidad;
+    private double precio;
 }
