@@ -30,12 +30,12 @@ public class Orden {
     private double total;
 
     @Builder
-    public Orden(String id, ObjectId idCuenta, ObjectId idCupon, Pago pago, LocalDateTime fecha, String codigoQR, List<DetalleOrden> items, double total) {
-        this.id = id;
+    public Orden(ObjectId idCuenta, ObjectId idCupon, Pago pago, LocalDateTime fecha, String codigoQR, List<DetalleOrden> items, double total) {
+
         this.idCuenta = idCuenta;
         this.idCupon = idCupon;
         this.pago = pago;
-        this.fecha = fecha;
+        this.fecha = LocalDateTime.now();
         this.codigoQR = codigoQR;
         this.items = items;
         this.total = total;

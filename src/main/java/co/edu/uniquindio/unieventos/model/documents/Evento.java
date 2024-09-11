@@ -35,8 +35,8 @@ public class Evento {
     private EstadoEvento estado;
 
     @Builder
-    public Evento(String id, String nombre, String descripcion, String ciudad, String direccion, LocalDateTime fecha, List<Localidad> localidades, String imagenPortada, String imagenLocalidades, TipoEvento tipo, EstadoEvento estado) {
-        this.id = id;
+    public Evento(String nombre, String descripcion, String ciudad, String direccion, LocalDateTime fecha, List<Localidad> localidades, String imagenPortada, String imagenLocalidades, TipoEvento tipo, EstadoEvento estado) {
+
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.ciudad = ciudad;

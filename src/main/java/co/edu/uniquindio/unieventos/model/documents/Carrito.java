@@ -28,7 +28,7 @@ public class Carrito {
     @Builder
     public Carrito(ObjectId idCuenta, LocalDateTime fecha, List<DetalleCarrito> items) {
         this.idCuenta = idCuenta;
-        this.fecha = fecha;
+        this.fecha = LocalDateTime.now();
         this.items = items;
     }
 }
