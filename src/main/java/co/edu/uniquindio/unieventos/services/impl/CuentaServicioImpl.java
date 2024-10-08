@@ -19,14 +19,10 @@ import java.util.List;
 
 @Service
 @Transactional
-
+@RequiredArgsConstructor
 public class CuentaServicioImpl implements CuentaServicio {
 
     private final CuentaRepo cuentaRepo;
-
-    public CuentaServicioImpl(CuentaRepo cuentaRepo) {
-        this.cuentaRepo = cuentaRepo;
-    }
 
     @Override
     public String crearCuenta(CrearCuentaDTO cuenta) throws Exception {
@@ -58,7 +54,7 @@ public class CuentaServicioImpl implements CuentaServicio {
     }
 
     @Override
-    public void editarCuenta(EditarCuentaDTO cuenta) throws Exception {
+    public void editarCuenta( EditarCuentaDTO cuenta) throws Exception {
         // Buscar la cuenta existente por ID
         Cuenta cuentaExistente = cuentaRepo.findById(cuenta.id())
                 .orElseThrow(() -> new Exception("Cuenta no encontrada"));
