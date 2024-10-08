@@ -19,7 +19,7 @@ import java.util.List;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
+
 public class CuentaServicioImpl implements CuentaServicio {
 
     private final CuentaRepo cuentaRepo;
