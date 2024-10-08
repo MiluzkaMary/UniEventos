@@ -12,7 +12,7 @@ import lombok.Setter;
 @Builder
 public class Usuario {
 
-    private String id;
+
     private String cedula;
     private String nombre;
     private String telefono;
