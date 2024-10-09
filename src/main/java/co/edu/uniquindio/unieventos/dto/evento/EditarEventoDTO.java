@@ -1,11 +1,11 @@
-package co.edu.uniquindio.unieventos.dto;
+package co.edu.uniquindio.unieventos.dto.evento;
 
 import co.edu.uniquindio.unieventos.model.enums.EstadoEvento;
 import co.edu.uniquindio.unieventos.model.enums.TipoEvento;
 import co.edu.uniquindio.unieventos.model.vo.Localidad;
 import java.time.LocalDateTime;
 import java.util.List;
-public record InformacionEventoDTO(
+public record EditarEventoDTO(
     String id,
     String nombre,
     String descripcion,
@@ -13,7 +13,10 @@ public record InformacionEventoDTO(
     String direccion,
     LocalDateTime fecha,
     List<Localidad> localidades,
+    String imagenPortada,
+    String imagenLocalidades,
     TipoEvento tipo,
     EstadoEvento estado
+
 ) {
 }

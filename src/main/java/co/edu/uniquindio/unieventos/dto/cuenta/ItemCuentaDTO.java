@@ -1,4 +1,4 @@
-package co.edu.uniquindio.unieventos.dto;
+package co.edu.uniquindio.unieventos.dto.cuenta;
 
 import co.edu.uniquindio.unieventos.model.enums.EstadoCuenta;
 import co.edu.uniquindio.unieventos.model.enums.Rol;

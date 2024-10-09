@@ -1,23 +1,21 @@
-package co.edu.uniquindio.unieventos.dto;
+package co.edu.uniquindio.unieventos.dto.cuenta;
+
 
 import co.edu.uniquindio.unieventos.model.enums.EstadoCuenta;
+import co.edu.uniquindio.unieventos.model.enums.Rol;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
-import jakarta.validation.constraints.Email;
 
-import java.time.LocalDateTime;
-
-
-
-public record InformacionCuentaDTO(
-
+public record EditarCuentaMasterDTO(
         @NotBlank String id,
         @NotBlank @Length(max = 50) @Email String correo,
         @NotBlank @Length(max = 10) String cedula,
         @NotBlank @Length(max = 100) String nombre,
         @Length(max = 100) String direccion,
         @NotBlank @Length(max = 10) String telefono,
-        LocalDateTime fechaNacimiento,
-
-        EstadoCuenta estado) {
+        @NotBlank @Length(min = 7, max = 20) String password,
+        EstadoCuenta estado,
+        Rol rol
+) {
 }

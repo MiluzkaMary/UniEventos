@@ -1,8 +1,12 @@
 package co.edu.uniquindio.unieventos.services.interfaces;
 
-import co.edu.uniquindio.unieventos.model.documents.Evento;
+import co.edu.uniquindio.unieventos.dto.evento.CrearEventoDTO;
+import co.edu.uniquindio.unieventos.dto.evento.EditarEventoDTO;
+import co.edu.uniquindio.unieventos.dto.evento.InformacionEventoDTO;
+import co.edu.uniquindio.unieventos.dto.evento.ItemEventoDTO;
 
 import java.util.List;
+
 public interface EventoServicio {
 
     /**
@@ -10,37 +14,40 @@ public interface EventoServicio {
      *
      * @param evento the event to create
      * @return the created event
+     * @throws Exception if an error occurs during event creation
      */
-    Evento crearEvento(Evento evento);
+    String crearEvento(CrearEventoDTO evento) throws Exception;
 
     /**
      * Updates an existing event.
-     *
-     * @param eventoId the ID of the event to update
+     * 
      * @param evento the updated event details
-     * @return the updated event
+     * @throws Exception if an error occurs during event update
      */
-    Evento actualizarEvento(String eventoId, Evento evento);
+    void actualizarEvento(EditarEventoDTO evento) throws Exception;
 
     /**
      * Deletes an event by its ID.
      *
-     * @param eventoId the ID of the event to delete
+     * @param Id the ID of the event to delete
+     * @throws Exception if an error occurs during event deletion
      */
-    void eliminarEvento(String eventoId);
+    void eliminarEvento(String Id) throws Exception;
 
     /**
      * Retrieves an event by its ID.
      *
-     * @param eventoId the ID of the event to retrieve
-     * @return the retrieved event
+     * @param Id the ID of the event to retrieve
+     * @return the event information
+     * @throws Exception if an error occurs during event retrieval
      */
-    Evento obtenerEvento(String eventoId);
+    InformacionEventoDTO obtenerInformacionEvento(String Id) throws Exception;
 
     /**
      * Retrieves all events.
      *
      * @return the list of all events
+     * @throws Exception if an error occurs during event retrieval
      */
-    List<Evento> obtenerTodosLosEventos();
+    List<ItemEventoDTO> obtenerTodosLosEventos() throws Exception;
 }

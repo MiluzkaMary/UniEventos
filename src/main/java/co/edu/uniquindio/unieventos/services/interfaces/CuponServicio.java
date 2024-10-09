@@ -1,6 +1,10 @@
 package co.edu.uniquindio.unieventos.services.interfaces;
 
-import co.edu.uniquindio.unieventos.model.documents.Cupon;
+import co.edu.uniquindio.unieventos.dto.cupon.CrearCuponDTO;
+import co.edu.uniquindio.unieventos.dto.cupon.EditarCuponDTO;
+import co.edu.uniquindio.unieventos.dto.cupon.InformacionCuponDTO;
+import co.edu.uniquindio.unieventos.dto.cupon.ItemCuponDTO;
+
 
 import java.util.List;
 
@@ -12,16 +16,16 @@ public interface CuponServicio {
      * @param cupon the coupon to create
      * @return the created coupon
      */
-    Cupon crearCupon(Cupon cupon);
+    String crearCupon(CrearCuponDTO cupon);
 
     /**
      * Updates an existing coupon.
      *
-     * @param cuponId the ID of the coupon to update
+     *
      * @param cupon the updated coupon details
      * @return the updated coupon
      */
-    Cupon actualizarCupon(String cuponId, Cupon cupon);
+    void actualizarCupon(EditarCuponDTO cupon);
 
     /**
      * Deletes a coupon by its ID.
@@ -36,12 +40,12 @@ public interface CuponServicio {
      * @param cuponId the ID of the coupon to retrieve
      * @return the retrieved coupon
      */
-    Cupon obtenerCupon(String cuponId);
+    InformacionCuponDTO obtenerCupon(String cuponId);
 
     /**
      * Retrieves all coupons.
      *
      * @return the list of all coupons
      */
-    List<Cupon> obtenerTodosLosCupones();
+    List<ItemCuponDTO> obtenerTodosLosCupones();
 }

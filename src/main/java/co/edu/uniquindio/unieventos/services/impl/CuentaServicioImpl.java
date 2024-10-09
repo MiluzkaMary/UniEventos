@@ -1,9 +1,9 @@
 package co.edu.uniquindio.unieventos.services.impl;
 
-import co.edu.uniquindio.unieventos.dto.CrearCuentaDTO;
-import co.edu.uniquindio.unieventos.dto.EditarCuentaDTO;
-import co.edu.uniquindio.unieventos.dto.InformacionCuentaDTO;
-import co.edu.uniquindio.unieventos.dto.ItemCuentaDTO;
+import co.edu.uniquindio.unieventos.dto.cuenta.CrearCuentaDTO;
+import co.edu.uniquindio.unieventos.dto.cuenta.EditarCuentaDTO;
+import co.edu.uniquindio.unieventos.dto.cuenta.InformacionCuentaDTO;
+import co.edu.uniquindio.unieventos.dto.cuenta.ItemCuentaDTO;
 import co.edu.uniquindio.unieventos.model.documents.Cuenta;
 import co.edu.uniquindio.unieventos.model.enums.EstadoCuenta;
 import co.edu.uniquindio.unieventos.model.enums.Rol;

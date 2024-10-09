@@ -1,10 +1,10 @@
 package co.edu.uniquindio.unieventos.services.interfaces;
 
-import co.edu.uniquindio.unieventos.dto.CrearCuentaDTO;
-import co.edu.uniquindio.unieventos.dto.EditarCuentaDTO;
-import co.edu.uniquindio.unieventos.dto.InformacionCuentaDTO;
-import co.edu.uniquindio.unieventos.dto.ItemCuentaDTO;
-import co.edu.uniquindio.unieventos.model.documents.Cuenta;
+import co.edu.uniquindio.unieventos.dto.cuenta.CrearCuentaDTO;
+import co.edu.uniquindio.unieventos.dto.cuenta.EditarCuentaDTO;
+import co.edu.uniquindio.unieventos.dto.cuenta.InformacionCuentaDTO;
+import co.edu.uniquindio.unieventos.dto.cuenta.ItemCuentaDTO;
+
 
 import java.util.List;
 

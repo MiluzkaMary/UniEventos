@@ -1,6 +1,6 @@
 package co.edu.uniquindio.unieventos.test;
 
-import co.edu.uniquindio.unieventos.dto.CrearCuentaDTO;
+import co.edu.uniquindio.unieventos.dto.cuenta.CrearCuentaDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import co.edu.uniquindio.unieventos.services.interfaces.CuentaServicio;
