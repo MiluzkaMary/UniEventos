@@ -12,7 +12,7 @@ public interface CuentaServicio {
 
     String crearCuenta(CrearCuentaDTO cuenta) throws Exception;
 
-    void editarCuenta( EditarCuentaDTO cuenta) throws Exception;
+    void editarCuenta(EditarCuentaDTO cuenta) throws Exception;
 
     void eliminarCuenta(String id) throws Exception;
 

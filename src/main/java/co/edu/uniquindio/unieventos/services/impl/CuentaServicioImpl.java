@@ -78,8 +78,11 @@ public class CuentaServicioImpl implements CuentaServicio {
         Cuenta cuentaExistente = cuentaRepo.findById(id)
                 .orElseThrow(() -> new Exception("Cuenta no encontrada"));
 
-        // Eliminar la cuenta de la base de datos
-        cuentaRepo.delete(cuentaExistente);
+        // Asignar el estado ELIMINADO a la cuenta
+        cuentaExistente.setEstado(EstadoCuenta.ELIMINADO);
+
+        // Guardar los cambios en la base de datos (actualiza el registro existente)
+        cuentaRepo.save(cuentaExistente);
     }
 
     @Override
@@ -115,6 +118,9 @@ public class CuentaServicioImpl implements CuentaServicio {
 
         return cuentasDTO;
     }
+
+
+
 
     private boolean existeEmail(String email) {
         return cuentaRepo.findByEmail(email).isPresent();

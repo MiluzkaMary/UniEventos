@@ -16,7 +16,7 @@ public interface CuponServicio {
      * @param cupon the coupon to create
      * @return the created coupon
      */
-    String crearCupon(CrearCuponDTO cupon);
+    String crearCupon(CrearCuponDTO cupon) throws Exception;
 
     /**
      * Updates an existing coupon.
@@ -25,14 +25,14 @@ public interface CuponServicio {
      * @param cupon the updated coupon details
      * @return the updated coupon
      */
-    void actualizarCupon(EditarCuponDTO cupon);
+    void editarCupon(EditarCuponDTO cupon) throws Exception;
 
     /**
      * Deletes a coupon by its ID.
      *
      * @param cuponId the ID of the coupon to delete
      */
-    void eliminarCupon(String cuponId);
+    void eliminarCupon(String cuponId) throws Exception;
 
     /**
      * Retrieves a coupon by its ID.
@@ -40,7 +40,7 @@ public interface CuponServicio {
      * @param cuponId the ID of the coupon to retrieve
      * @return the retrieved coupon
      */
-    InformacionCuponDTO obtenerCupon(String cuponId);
+    InformacionCuponDTO obtenerCupon(String cuponId) throws Exception;
 
     /**
      * Retrieves all coupons.

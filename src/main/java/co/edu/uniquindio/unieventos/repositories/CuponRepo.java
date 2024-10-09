@@ -4,6 +4,14 @@ import co.edu.uniquindio.unieventos.model.documents.Cupon;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface CuponRepo extends MongoRepository<Cupon, String> {
+
+
+    Optional<Cupon> findByCodigo(String codigo);
+
+
+    Optional<Cupon> findByNombre(String nombre);
 }

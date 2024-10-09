@@ -29,6 +29,6 @@ public class Carrito {
     public Carrito(ObjectId idCuenta, LocalDateTime fecha, List<DetalleCarrito> items) {
         this.idCuenta = idCuenta;
         this.fecha = LocalDateTime.now();
-        this.items = items;
+        this.items = items; //new ArrayList<>();
     }
 }
