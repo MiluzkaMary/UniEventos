@@ -17,4 +17,5 @@ public class DetalleOrden {
     private int cantidad;
     private String nombreLocalidad;
     private double precio;
+    private double precioUnitario;
 }

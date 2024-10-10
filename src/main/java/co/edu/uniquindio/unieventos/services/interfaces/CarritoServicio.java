@@ -1,51 +1,49 @@
 package co.edu.uniquindio.unieventos.services.interfaces;
 
-import co.edu.uniquindio.unieventos.model.documents.Carrito;
-import co.edu.uniquindio.unieventos.model.vo.DetalleCarrito;
+import co.edu.uniquindio.unieventos.dto.carrito.CrearCarritoDTO;
+import co.edu.uniquindio.unieventos.dto.carrito.EditarCarritoDTO;
+import co.edu.uniquindio.unieventos.dto.carrito.InformacionCarritoDTO;
+import co.edu.uniquindio.unieventos.dto.carrito.ItemCarritoDTO;
+import org.bson.types.ObjectId;
 
 import java.util.List;
 
 public interface CarritoServicio {
 
     /**
-     * Adds an item to the shopping cart.
+     * Creates a new carrito.
      *
-     * @param carritoId the ID of the shopping cart
-     * @param detalleCarrito the details of the item to add
-     * @return the updated shopping cart
+     * @param carrito the carrito to create
+     * @return the created carrito's ID
      */
-    Carrito agregarItem(String carritoId, DetalleCarrito detalleCarrito);
+    String crearCarrito(CrearCarritoDTO carrito) throws Exception;
 
     /**
-     * Removes an item from the shopping cart.
+     * Updates an existing carrito.
      *
-     * @param carritoId the ID of the shopping cart
-     * @param itemId the ID of the item to remove
-     * @return the updated shopping cart
+     * @param carrito the updated carrito details
      */
-    Carrito eliminarItem(String carritoId, String itemId);
+    void editarCarrito(EditarCarritoDTO carrito) throws Exception;
 
     /**
-     * Retrieves the shopping cart by its ID.
+     * Deletes a carrito by its ID.
      *
-     * @param carritoId the ID of the shopping cart
-     * @return the shopping cart
+     * @param id the ID of the carrito to delete
      */
-    Carrito obtenerCarrito(String carritoId);
+    void eliminarCarrito(String id) throws Exception;
 
     /**
-     * Clears all items from the shopping cart.
+     * Retrieves a carrito by the account ID.
      *
-     * @param carritoId the ID of the shopping cart
-     * @return the updated shopping cart
+     * @param idCuenta the ID of the account (Cuenta) associated with the carrito
+     * @return the carrito information
      */
-    Carrito vaciarCarrito(String carritoId);
+    InformacionCarritoDTO obtenerCarritoPorCuenta(ObjectId idCuenta) throws Exception;
 
     /**
-     * Retrieves all items in the shopping cart.
+     * Retrieves all carritos.
      *
-     * @param carritoId the ID of the shopping cart
-     * @return the list of items in the shopping cart
+     * @return the list of all carritos
      */
-    List<DetalleCarrito> obtenerItems(String carritoId);
+    List<ItemCarritoDTO> listarCarritos();
 }

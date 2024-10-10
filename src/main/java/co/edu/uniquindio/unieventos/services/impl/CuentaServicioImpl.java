@@ -35,7 +35,7 @@ public class CuentaServicioImpl implements CuentaServicio {
             throw new Exception("La cédula " + cuenta.cedula() + " ya se encuentra registrada");
         }
 
-        // Mapeamos (pasamos) los datos del DTO a un objeto de tipo Cuenta
+
         Cuenta nuevaCuenta = new Cuenta();
         nuevaCuenta.setCorreo(cuenta.correo());
         nuevaCuenta.setPassword(cuenta.password());

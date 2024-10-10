@@ -11,6 +11,6 @@ import java.util.List;
 public record CrearCarritoDTO(
         @NotBlank String idCuenta,
         LocalDateTime fecha,
-        @NotEmpty List<Localidad> items
+        @NotEmpty List<DetalleCarritoDTO> items
 ) {
 }

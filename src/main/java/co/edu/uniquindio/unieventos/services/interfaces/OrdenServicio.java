@@ -1,8 +1,9 @@
 package co.edu.uniquindio.unieventos.services.interfaces;
 
-
-import co.edu.uniquindio.unieventos.model.documents.Orden;
-
+import co.edu.uniquindio.unieventos.dto.orden.CrearOrdenDTO;
+import co.edu.uniquindio.unieventos.dto.orden.EditarOrdenDTO;
+import co.edu.uniquindio.unieventos.dto.orden.InformacionOrdenDTO;
+import co.edu.uniquindio.unieventos.dto.orden.ItemOrdenDTO;
 import java.util.List;
 
 public interface OrdenServicio {
@@ -10,39 +11,41 @@ public interface OrdenServicio {
     /**
      * Creates a new order.
      *
-     * @param orden the order to create
-     * @return the created order
+     * @param orden DTO for creating the order
+     * @return the created order's ID
+     * @throws Exception if an error occurs during order creation
      */
-    Orden crearOrden(Orden orden);
+    String crearOrden(CrearOrdenDTO orden) throws Exception;
 
     /**
-     * Updates an existing order.
+     * Edits an existing order.
      *
-     * @param ordenId the ID of the order to update
-     * @param orden the updated order details
-     * @return the updated order
+     * @param orden DTO for editing the order
+     * @throws Exception if an error occurs during order update
      */
-    Orden actualizarOrden(String ordenId, Orden orden);
+    void editarOrden(EditarOrdenDTO orden) throws Exception;
 
     /**
      * Deletes an order by its ID.
      *
-     * @param ordenId the ID of the order to delete
+     * @param id the ID of the order to delete
+     * @throws Exception if an error occurs during order deletion
      */
-    void eliminarOrden(String ordenId);
+    void eliminarOrden(String id) throws Exception;
 
     /**
      * Retrieves an order by its ID.
      *
-     * @param ordenId the ID of the order to retrieve
-     * @return the retrieved order
+     * @param id the ID of the order to retrieve
+     * @return DTO containing order information
+     * @throws Exception if an error occurs during order retrieval
      */
-    Orden obtenerOrden(String ordenId);
+    InformacionOrdenDTO obtenerInformacionOrden(String id) throws Exception;
 
     /**
      * Retrieves all orders.
      *
-     * @return the list of all orders
+     * @return a list of DTOs representing all orders
      */
-    List<Orden> obtenerTodasLasOrdenes();
+    List<ItemOrdenDTO> listarOrdenes();
 }

@@ -7,6 +7,8 @@ import co.edu.uniquindio.unieventos.dto.evento.InformacionEventoDTO;
 import co.edu.uniquindio.unieventos.dto.evento.ItemEventoDTO;
 import co.edu.uniquindio.unieventos.model.documents.Evento;
 import co.edu.uniquindio.unieventos.model.enums.EstadoEvento;
+import co.edu.uniquindio.unieventos.model.vo.DetalleCarrito;
+import co.edu.uniquindio.unieventos.model.vo.Localidad;
 import co.edu.uniquindio.unieventos.repositories.EventoRepo;
 import co.edu.uniquindio.unieventos.services.interfaces.EventoServicio;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +39,13 @@ public class EventoServicioImpl implements EventoServicio {
                 .ciudad(eventoDTO.ciudad())
                 .direccion(eventoDTO.direccion())
                 .fecha(eventoDTO.fecha())
-                .localidades(eventoDTO.localidades())
+                .localidades(eventoDTO.localidades().stream()
+                        .map(localidad -> new Localidad(
+                                localidad.nombre(),
+                                localidad.precio(),
+                                localidad.capacidadMaxima(),
+                                localidad.capacidadDisponible()))
+                        .toList())
                 .imagenPortada(eventoDTO.imagenPortada())
                 .imagenLocalidades(eventoDTO.imagenLocalidades())
                 .tipo(eventoDTO.tipo())
@@ -61,7 +69,13 @@ public class EventoServicioImpl implements EventoServicio {
         eventoExistente.setCiudad(eventoDTO.ciudad());
         eventoExistente.setDireccion(eventoDTO.direccion());
         eventoExistente.setFecha(eventoDTO.fecha());
-        eventoExistente.setLocalidades(eventoDTO.localidades());
+        eventoExistente.setLocalidades(eventoDTO.localidades().stream()
+                .map(localidad -> new Localidad(
+                        localidad.nombre(),
+                        localidad.precio(),
+                        localidad.capacidadMaxima(),
+                        localidad.capacidadDisponible()))
+                .toList());
         eventoExistente.setImagenPortada(eventoDTO.imagenPortada());
         eventoExistente.setImagenLocalidades(eventoDTO.imagenLocalidades());
         eventoExistente.setTipo(eventoDTO.tipo());
