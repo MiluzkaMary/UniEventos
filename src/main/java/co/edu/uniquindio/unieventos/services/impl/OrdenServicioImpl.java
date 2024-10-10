@@ -23,7 +23,17 @@ public class OrdenServicioImpl implements OrdenServicio {
 
     @Override
     public String crearOrden(CrearOrdenDTO ordenDTO) throws Exception {
-        // Crear una nueva orden utilizando DetalleOrdenDTO
+        // Verificar si ya existe una orden para la cuenta
+        if (existeOrdenPorCuentaId(ordenDTO.idCuenta())) {
+            throw new Exception("Ya existe una orden para esta cuenta.");
+        }
+
+        // Verificar si ya existe una orden con el mismo código QR
+        if (existeOrdenPorCodigoQR(ordenDTO.codigoQR())) {
+            throw new Exception("El código QR " + ordenDTO.codigoQR() + " ya está en uso.");
+        }
+
+        // Crear una nueva orden
         Orden nuevaOrden = Orden.builder()
                 .idCuenta(ordenDTO.idCuenta())  // Asignar ID de cuenta
                 .idCupon(ordenDTO.idCupon() != null ? ordenDTO.idCupon() : null) // Asignar ID de cupón si existe
@@ -46,6 +56,7 @@ public class OrdenServicioImpl implements OrdenServicio {
         Orden ordenCreada = ordenRepo.save(nuevaOrden);
         return ordenCreada.getId(); // Retornar el ID de la orden creada
     }
+
 
     @Override
     public void editarOrden(EditarOrdenDTO ordenDTO) throws Exception {
@@ -136,5 +147,14 @@ public class OrdenServicioImpl implements OrdenServicio {
                 ))
                 .toList();  // Convertir el resultado final a una lista de ItemOrdenDTO
     }
+
+    private boolean existeOrdenPorCuentaId(ObjectId idCuenta) {
+        return ordenRepo.findByIdCuenta(idCuenta).isPresent();
+    }
+
+    private boolean existeOrdenPorCodigoQR(String codigoQR) {
+        return ordenRepo.findByCodigoQR(codigoQR).isPresent();
+    }
+
 
 }

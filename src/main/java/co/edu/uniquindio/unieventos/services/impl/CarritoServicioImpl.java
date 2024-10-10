@@ -79,7 +79,7 @@ public class CarritoServicioImpl implements CarritoServicio {
     @Override
     public InformacionCarritoDTO obtenerCarritoPorCuenta(ObjectId idCuenta) throws Exception {
         // Buscar el carrito asociado a la cuenta
-        Carrito carritoExistente = carritoRepo.findByCuenta(idCuenta)
+        Carrito carritoExistente = carritoRepo.findByIdCuenta(idCuenta)
                 .orElseThrow(() -> new Exception("Carrito no encontrado para la cuenta"));
 
         // Mapear el carrito a InformacionCarritoDTO
@@ -119,7 +119,7 @@ public class CarritoServicioImpl implements CarritoServicio {
 
 
     private boolean existeCarritoPorCuenta(ObjectId idCuenta) {
-        return carritoRepo.findByCuenta(idCuenta).isPresent();
+        return carritoRepo.findByIdCuenta(idCuenta).isPresent();
     }
 
 }

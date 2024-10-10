@@ -1,18 +1,15 @@
 package co.edu.uniquindio.unieventos.dto.cuenta;
 
 import co.edu.uniquindio.unieventos.model.enums.EstadoCuenta;
-import co.edu.uniquindio.unieventos.model.enums.Rol;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
-public record EditarCuentaDTO(
 
+public record EditarCuentaDTO(
         @NotBlank String id,
-        @NotBlank @Length(max = 50) @Email String correo,
-        @NotBlank @Length(max = 100) String nombre,
-        @Length(max = 100) String direccion,
-        @NotBlank @Length(max = 10) String telefono,
-        @NotBlank @Length(min = 7, max = 20) String password,
-        @NotBlank @Length(max = 10) String cedula
-) {
-}
+        @NotBlank @Email @Length(max = 50) String correo,
+        @NotBlank @Length(min = 8, max = 20) String password,
+        @NotNull UsuarioDTO usuario,  // Incluir UsuarioDTO para la edición
+        EstadoCuenta estado
+) {}

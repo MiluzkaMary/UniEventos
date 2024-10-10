@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface OrdenRepo extends MongoRepository<Orden, String> {
 
-    Optional<Orden> findByCuenta(ObjectId idCuenta);
+    Optional<Orden> findByIdCuenta(ObjectId idCuenta);
 
     Optional<Orden> findByCodigoQR(String codigoQR);
 

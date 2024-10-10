@@ -3,6 +3,7 @@ package co.edu.uniquindio.unieventos.services.impl;
 import co.edu.uniquindio.unieventos.dto.cuenta.CrearCuentaDTO;
 import co.edu.uniquindio.unieventos.dto.cuenta.EditarCuentaDTO;
 import co.edu.uniquindio.unieventos.dto.cuenta.InformacionCuentaDTO;
+import co.edu.uniquindio.unieventos.dto.cuenta.UsuarioDTO;
 import co.edu.uniquindio.unieventos.dto.cuenta.ItemCuentaDTO;
 import co.edu.uniquindio.unieventos.model.documents.Cuenta;
 import co.edu.uniquindio.unieventos.model.enums.EstadoCuenta;
@@ -10,6 +11,7 @@ import co.edu.uniquindio.unieventos.model.enums.Rol;
 import co.edu.uniquindio.unieventos.model.vo.Usuario;
 import co.edu.uniquindio.unieventos.repositories.CuentaRepo;
 import co.edu.uniquindio.unieventos.services.interfaces.CuentaServicio;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -27,31 +29,38 @@ public class CuentaServicioImpl implements CuentaServicio {
     @Override
     public String crearCuenta(CrearCuentaDTO cuenta) throws Exception {
 
+        // Verificar si el correo ya existe
         if (existeEmail(cuenta.correo())) {
             throw new Exception("El correo " + cuenta.correo() + " ya está en uso");
         }
 
-        if (existeCedula(cuenta.cedula())) {
-            throw new Exception("La cédula " + cuenta.cedula() + " ya se encuentra registrada");
+        // Convertir UsuarioDTO a Usuario antes de verificar si el usuario existe
+        Usuario usuario = new Usuario(
+                cuenta.usuario().cedula(),
+                cuenta.usuario().nombre(),
+                cuenta.usuario().telefono(),
+                cuenta.usuario().direccion()
+        );
+
+        // Verificar si el usuario ya existe utilizando el objeto Usuario
+        if (existeUsuario(usuario)) {
+            throw new Exception("La cédula " + cuenta.usuario().cedula() + " ya se encuentra registrada");
         }
 
-
+        // Crear una nueva cuenta
         Cuenta nuevaCuenta = new Cuenta();
         nuevaCuenta.setCorreo(cuenta.correo());
         nuevaCuenta.setPassword(cuenta.password());
         nuevaCuenta.setRol(Rol.CLIENTE);
         nuevaCuenta.setFechaRegistro(LocalDateTime.now());
-        nuevaCuenta.setUsuario(new Usuario(
-                cuenta.cedula(),
-                cuenta.nombre(),
-                cuenta.telefono(),
-                cuenta.direccion()));
-        nuevaCuenta.setEstado(EstadoCuenta.INACTIVO);
+        nuevaCuenta.setUsuario(usuario);  // Asignar el usuario a la cuenta
+        nuevaCuenta.setEstado(EstadoCuenta.ACTIVO);  // Estado ACTIVO por defecto
 
-        // Guardamos la cuenta del usuario en la base de datos
+        // Guardar la cuenta en la base de datos
         Cuenta cuentaCreada = cuentaRepo.save(nuevaCuenta);
         return cuentaCreada.getId();
     }
+
 
     @Override
     public void editarCuenta( EditarCuentaDTO cuenta) throws Exception {
@@ -63,10 +72,10 @@ public class CuentaServicioImpl implements CuentaServicio {
         cuentaExistente.setCorreo(cuenta.correo());
         cuentaExistente.setPassword(cuenta.password());
         cuentaExistente.setUsuario(new Usuario(
-                cuenta.cedula(),
-                cuenta.nombre(),
-                cuenta.telefono(),
-                cuenta.direccion()));
+                cuenta.usuario().cedula(),
+                cuenta.usuario().nombre(),
+                cuenta.usuario().telefono(),
+                cuenta.usuario().direccion()));
 
         // Guardar la cuenta actualizada en la base de datos
         cuentaRepo.save(cuentaExistente);
@@ -93,9 +102,7 @@ public class CuentaServicioImpl implements CuentaServicio {
 
         // Mapear los datos de la cuenta a un DTO de información de cuenta
         InformacionCuentaDTO informacionCuenta = new InformacionCuentaDTO(
-                cuentaExistente.getId(), cuentaExistente.getCorreo(), cuentaExistente.getUsuario().getCedula(),
-                cuentaExistente.getUsuario().getNombre(), cuentaExistente.getUsuario().getDireccion(),
-                cuentaExistente.getUsuario().getTelefono(), cuentaExistente.getFechaNacimiento(),
+                cuentaExistente.getId(), cuentaExistente.getCorreo(), cuentaExistente.getUsuario(),
                 cuentaExistente.getEstado());
 
         return informacionCuenta;
@@ -107,26 +114,30 @@ public class CuentaServicioImpl implements CuentaServicio {
         List<Cuenta> cuentas = cuentaRepo.findAll();
 
         // Mapear las cuentas a una lista de ItemCuentaDTO
-        List<ItemCuentaDTO> cuentasDTO = cuentas.stream()
+        return cuentas.stream()
                 .map(cuenta -> new ItemCuentaDTO(
                         cuenta.getId(),
                         cuenta.getCorreo(),
-                        cuenta.getUsuario().getNombre(),
-                        cuenta.getUsuario().getCedula(),
-                        cuenta.getUsuario().getTelefono()))
-                .toList();
-
-        return cuentasDTO;
+                        new UsuarioDTO(
+                                cuenta.getUsuario().getCedula(),
+                                cuenta.getUsuario().getNombre(),
+                                cuenta.getUsuario().getTelefono(),
+                                cuenta.getUsuario().getDireccion()
+                        ),
+                        cuenta.getEstado()
+                ))
+                .toList();  // Convertir a lista de ItemCuentaDTO
     }
 
 
 
 
-    private boolean existeEmail(String email) {
-        return cuentaRepo.findByEmail(email).isPresent();
+
+    private boolean existeEmail(String correo) {
+        return cuentaRepo.findByCorreo(correo).isPresent();
     }
 
-    private boolean existeCedula(String cedula) {
-        return cuentaRepo.findByCedula(cedula).isPresent();
+    private boolean existeUsuario(Usuario usuario) {
+        return cuentaRepo.findByUsuario(usuario).isPresent();
     }
 }
