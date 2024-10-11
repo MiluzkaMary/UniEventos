@@ -16,6 +16,7 @@ public record EditarOrdenDTO(
         @NotNull LocalDateTime fecha,
         @NotBlank String codigoQR,
         @NotNull List<DetalleOrdenDTO> items,
-        @NotNull double total
+        @NotNull double total,
+        @NotNull String codigoPasarela
 ) {
 }

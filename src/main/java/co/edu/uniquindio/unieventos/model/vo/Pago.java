@@ -14,10 +14,12 @@ import lombok.Setter;
 @Setter
 @Builder
 public class Pago {
-
+    private String codigo;
     private LocalDateTime fecha;
-    private double totalPago;
     private String estado;
+    private String detalleEstado;
     private Pasarela metodoPago;
-
+    private String moneda;
+    private String codigoAutorizacion;
+    private double totalPago;
 }

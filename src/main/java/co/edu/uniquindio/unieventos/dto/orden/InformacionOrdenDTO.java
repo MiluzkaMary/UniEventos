@@ -16,6 +16,7 @@ public record InformacionOrdenDTO(
         @NotNull LocalDateTime fecha,
         @NotBlank String codigoQR,
         @NotNull List<DetalleOrden> items,
-        @NotNull double total
+        @NotNull double total,
+        @NotNull String codigoPasarela
 ) {
 }

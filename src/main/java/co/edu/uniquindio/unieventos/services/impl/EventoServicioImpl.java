@@ -119,9 +119,25 @@ public class EventoServicioImpl implements EventoServicio {
                 eventoExistente.getDireccion(),
                 eventoExistente.getFecha(),
                 eventoExistente.getLocalidades(),
+                eventoExistente.getImagenPortada(),
+                eventoExistente.getImagenLocalidades(),
                 eventoExistente.getTipo(),
                 eventoExistente.getEstado());
     }
+
+    private Evento convertirDtoAEvento(InformacionEventoDTO eventoDTO) {
+        return Evento.builder()
+                .nombre(eventoDTO.nombre())
+                .descripcion(eventoDTO.descripcion())
+                .ciudad(eventoDTO.ciudad())
+                .direccion(eventoDTO.direccion())
+                .fecha(eventoDTO.fecha())
+                .localidades(eventoDTO.localidades())
+                .tipo(eventoDTO.tipo())
+                .estado(eventoDTO.estado())
+                .build();
+    }
+
 
     @Override
     public List<ItemEventoDTO> obtenerTodosLosEventos() throws Exception {

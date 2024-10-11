@@ -4,7 +4,9 @@ import co.edu.uniquindio.unieventos.dto.orden.CrearOrdenDTO;
 import co.edu.uniquindio.unieventos.dto.orden.EditarOrdenDTO;
 import co.edu.uniquindio.unieventos.dto.orden.InformacionOrdenDTO;
 import co.edu.uniquindio.unieventos.dto.orden.ItemOrdenDTO;
+import com.mercadopago.resources.preference.Preference;
 import java.util.List;
+import java.util.Map;
 
 public interface OrdenServicio {
 
@@ -48,4 +50,13 @@ public interface OrdenServicio {
      * @return a list of DTOs representing all orders
      */
     List<ItemOrdenDTO> listarOrdenes();
+
+
+    /**
+     * Pasarela MercadoPago
+     */
+    Preference realizarPago(String idOrden) throws Exception;
+
+    void recibirNotificacionMercadoPago(Map<String, Object> request);
+
 }

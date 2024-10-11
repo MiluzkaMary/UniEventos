@@ -18,6 +18,8 @@ public record InformacionEventoDTO(
         @NotBlank String direccion,
         @NotNull LocalDateTime fecha,
         @NotNull List<Localidad> localidades,
+        @NotBlank String imagenPortada,
+        @NotBlank String imagenLocalidades,
         @NotNull TipoEvento tipo,
         @NotNull EstadoEvento estado
 ) {

@@ -30,8 +30,16 @@ public class OrdenServicioTest {
         List<DetalleOrdenDTO> items = List.of(detalle1);
 
         // Crear objeto Pago
-        PagoDTO pago = new PagoDTO(LocalDateTime.now(), 100.0, "APROBADO", Pasarela.MercadoPago);
-
+        PagoDTO pago = new PagoDTO(
+                "PAY-001",                         // Código de pago
+                LocalDateTime.now(),              // Fecha del pago
+                100.0,                            // Total
+                "APROBADO",                       // Estado del pago
+                "Estado detalle de la transacción", // Detalle del estado
+                Pasarela.MercadoPago,             // Método de pago
+                "COP",                            // Moneda
+                "AUTH-12345"                      // Código de autorización
+        );
         // Crear DTO para nueva orden
         CrearOrdenDTO crearOrdenDTO = new CrearOrdenDTO(
                 new ObjectId("670884ae3dd28a6ea935f6c0"), // Carlos Gomez
@@ -40,7 +48,8 @@ public class OrdenServicioTest {
                 LocalDateTime.now(),
                 "QR123",
                 items,
-                100.0
+                100.0,
+                "MercadoPago"
         );
 
         // Verificar que la orden se cree sin lanzar excepción
@@ -63,8 +72,16 @@ public class OrdenServicioTest {
         List<DetalleOrdenDTO> items = List.of(detalle1);
 
         // Crear objeto Pago actualizado
-        PagoDTO pago = new PagoDTO(LocalDateTime.now(), 450.0, "APROBADO", Pasarela.PayPal);
-
+        PagoDTO pago = new PagoDTO(
+                "PAY-001",                         // Código de pago
+                LocalDateTime.now(),              // Fecha del pago
+                100.0,                            // Total
+                "APROBADO",                       // Estado del pago
+                "Estado detalle de la transacción", // Detalle del estado
+                Pasarela.MercadoPago,             // Método de pago
+                "COP",                            // Moneda
+                "AUTH-12345"                      // Código de autorización
+        );
         // Crear DTO para editar la orden
         EditarOrdenDTO editarOrdenDTO = new EditarOrdenDTO(
                 idOrden,
@@ -74,7 +91,8 @@ public class OrdenServicioTest {
                 LocalDateTime.now(),
                 "QR124", // Nuevo código QR
                 items,
-                450.0 // Nuevo total
+                450.0,
+                "MercadoPago"
         );
 
         // Verificar que la orden se edite sin lanzar excepción

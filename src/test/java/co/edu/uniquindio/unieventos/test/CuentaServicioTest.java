@@ -24,13 +24,13 @@ public class CuentaServicioTest {
     public void crearCuentaTest() {
 
         UsuarioDTO crearUsuarioDTO = new UsuarioDTO(
-                "12121",
-                "Mary Saire",
-                "1929109",
+                "019291",
+                "Camilo Romero",
+                "77777",
                 "Av 19");
         // Crear un DTO con los datos para crear una nueva cuenta
         CrearCuentaDTO crearCuentaDTO = new CrearCuentaDTO(
-                "mary512@gmail.com",
+                "milkywahy@gmail.com",
                 "23828",
                 Rol.CLIENTE,
                 LocalDateTime.now().minusYears(23),
