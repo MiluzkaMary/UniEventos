@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 public record InformacionCuentaDTO(
         @NotBlank String id,
         @NotBlank String correo,
+        @NotNull String contraseña,
         @NotNull Usuario usuario,
         EstadoCuenta estado
 ) {}

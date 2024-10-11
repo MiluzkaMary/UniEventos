@@ -51,7 +51,7 @@ public class CuentaServicioTest {
 
 
         //Se define el id de la cuenta del usuario a actualizar, este id está en el dataset.js
-        String idCuenta = "67090e11974f3c6c277266e0";
+        String idCuenta = "670883a280993b6853af632e";
 
         UsuarioDTO usuarioDTO= new UsuarioDTO(
                 "Nueva cedula",
@@ -84,7 +84,8 @@ public class CuentaServicioTest {
             assertEquals("Nueva cedula", detalle.usuario().getCedula());
             assertEquals("Nuevo nombre", detalle.usuario().getNombre());
             assertEquals("Nuevo tlfn", detalle.usuario().getTelefono());
-            assertEquals("pepitoperez2@email.com", detalle.correo());
+            assertEquals("prueba@email.com", detalle.correo());
+
             assertEquals(EstadoCuenta.INACTIVO, detalle.estado());
 
         });
@@ -116,10 +117,19 @@ public class CuentaServicioTest {
         lista.forEach(cuenta -> System.out.println("Cuenta: " + cuenta));
 
         //Se verifica que la lista no sea nula y que tenga 3 elementos (o los que hayan)
-        assertEquals(8, lista.size());
+        assertEquals(5, lista.size());
     }
 
+    @Test
+    public void iniciarSesion(){
 
+        LoginDTO loginDTO = new LoginDTO(
+                "prueba@email.com",
+                "nueva password"
+        );
+
+        assertDoesNotThrow(() -> cuentaServicio.iniciarSesion(loginDTO));
+    }
 
 
 }

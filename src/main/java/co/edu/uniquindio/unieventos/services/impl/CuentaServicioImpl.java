@@ -1,11 +1,9 @@
 package co.edu.uniquindio.unieventos.services.impl;
 
-import co.edu.uniquindio.unieventos.dto.cuenta.CrearCuentaDTO;
-import co.edu.uniquindio.unieventos.dto.cuenta.EditarCuentaDTO;
-import co.edu.uniquindio.unieventos.dto.cuenta.InformacionCuentaDTO;
-import co.edu.uniquindio.unieventos.dto.cuenta.UsuarioDTO;
-import co.edu.uniquindio.unieventos.dto.cuenta.ItemCuentaDTO;
+import co.edu.uniquindio.unieventos.config.JWTUtils;
+import co.edu.uniquindio.unieventos.dto.cuenta.*;
 import co.edu.uniquindio.unieventos.dto.otros.EmailDTO;
+import co.edu.uniquindio.unieventos.dto.otros.TokenDTO;
 import co.edu.uniquindio.unieventos.model.documents.Cuenta;
 import co.edu.uniquindio.unieventos.model.enums.EstadoCuenta;
 import co.edu.uniquindio.unieventos.model.enums.Rol;
@@ -14,12 +12,14 @@ import co.edu.uniquindio.unieventos.repositories.CuentaRepo;
 import co.edu.uniquindio.unieventos.services.interfaces.CuentaServicio;
 import co.edu.uniquindio.unieventos.services.interfaces.EmailServicio;
 import org.bson.types.ObjectId;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -29,6 +29,8 @@ public class CuentaServicioImpl implements CuentaServicio {
     private final CuentaRepo cuentaRepo;
 
     private final EmailServicio emailServicio;
+
+    private final JWTUtils jwtUtils;
 
     @Override
     public String crearCuenta(CrearCuentaDTO cuenta) throws Exception {
@@ -54,7 +56,7 @@ public class CuentaServicioImpl implements CuentaServicio {
         // Crear una nueva cuenta
         Cuenta nuevaCuenta = new Cuenta();
         nuevaCuenta.setCorreo(cuenta.correo());
-        nuevaCuenta.setPassword(cuenta.password());
+        nuevaCuenta.setPassword(encriptarPassword(cuenta.password()));
         nuevaCuenta.setRol(Rol.CLIENTE);
         nuevaCuenta.setFechaRegistro(LocalDateTime.now());
         nuevaCuenta.setUsuario(usuario);  // Asignar el usuario a la cuenta
@@ -94,7 +96,7 @@ public class CuentaServicioImpl implements CuentaServicio {
 
         // Actualizar los datos de la cuenta existente con los datos del DTO
         cuentaExistente.setCorreo(cuenta.correo());
-        cuentaExistente.setPassword(cuenta.password());
+        cuentaExistente.setPassword(encriptarPassword(cuenta.password()));
         cuentaExistente.setUsuario(new Usuario(
                 cuenta.usuario().cedula(),
                 cuenta.usuario().nombre(),
@@ -155,6 +157,7 @@ public class CuentaServicioImpl implements CuentaServicio {
         InformacionCuentaDTO informacionCuenta = new InformacionCuentaDTO(
                 cuentaExistente.getId(),
                 cuentaExistente.getCorreo(),
+                cuentaExistente.getPassword(),
                 cuentaExistente.getUsuario(),
                 cuentaExistente.getEstado());
 
@@ -181,6 +184,58 @@ public class CuentaServicioImpl implements CuentaServicio {
                         cuenta.getEstado()
                 ))
                 .toList();  // Convertir a lista de ItemCuentaDTO
+    }
+
+    private String encriptarPassword(String password){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.encode( password );
+
+    }
+
+
+    private Cuenta obtenerPorEmail(String correo) throws Exception {
+        // Buscar la cuenta existente por correo
+        Cuenta cuentaExistente = cuentaRepo.findByCorreo(correo)
+                .orElseThrow(() -> new Exception("Cuenta no encontrada"));
+
+        // Verificar si la cuenta tiene el estado ELIMINADO
+        if (cuentaExistente.getEstado() == EstadoCuenta.ELIMINADO) {
+            System.out.println("Cuenta eliminada, lanzando excepción...");
+            throw new Exception("Cuenta Eliminada");
+
+        }
+
+
+
+
+
+        return cuentaExistente;
+    }
+
+    @Override
+    public TokenDTO iniciarSesion(LoginDTO loginDTO) throws Exception {
+
+
+        Cuenta cuenta = obtenerPorEmail(loginDTO.correo());
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+
+        if( !passwordEncoder.matches(loginDTO.password(), cuenta.getPassword()) ) {
+            throw new Exception("La contraseña es incorrecta");
+        }
+
+
+        Map<String, Object> map = construirClaims(cuenta);
+        System.out.println(jwtUtils.generarToken(cuenta.getCorreo(), map));
+        return new TokenDTO( jwtUtils.generarToken(cuenta.getCorreo(), map) );
+    }
+
+    private Map<String, Object> construirClaims(Cuenta cuenta) {
+        return Map.of(
+                "rol", cuenta.getRol(),
+                "nombre", cuenta.getUsuario().getNombre(),
+                "id", cuenta.getId()
+        );
     }
 
 
