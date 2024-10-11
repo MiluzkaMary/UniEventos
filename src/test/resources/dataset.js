@@ -72,3 +72,124 @@ db.cuentas.insertMany([
     "estado": "ELIMINADO"
   }
 ]);
+
+db.eventos.insertMany([
+  {
+    "_id": ObjectId("670888ac9f284d853da91226"),
+    "nombre": "Concierto de Rock",
+    "descripcion": "Un concierto de rock en vivo con bandas locales e internacionales.",
+    "ciudad": "Ciudad de México",
+    "direccion": "Estadio Central, Avenida Reforma 123",
+    "fecha": new Date("2024-12-01T20:00:00Z"),
+    "localidades": [
+      {
+        "nombre": "General",
+        "precio": 50.00,
+        "capacidadMaxima": 5000,
+        "capacidadDisponible": 2000
+      },
+      {
+        "nombre": "VIP",
+        "precio": 150.00,
+        "capacidadMaxima": 1000,
+        "capacidadDisponible": 500
+      }
+    ],
+    "imagenPortada": "https://example.com/concierto-rock-portada.jpg",
+    "imagenLocalidades": "https://example.com/concierto-rock-localidades.jpg",
+    "tipo": "CONCIERTO",
+    "estado": "ACTIVO"
+  },
+  {
+    "_id": ObjectId("670888b687c495460cab2526"),
+    "nombre": "Feria Internacional del Libro",
+    "descripcion": "Una feria con la participación de escritores y editoriales de todo el mundo.",
+    "ciudad": "Guadalajara",
+    "direccion": "Expo Guadalajara, Avenida Mariano Otero 1499",
+    "fecha": new Date("2024-11-15T09:00:00Z"),
+    "localidades": [
+      {
+        "nombre": "Acceso General",
+        "precio": 10.00,
+        "capacidadMaxima": 10000,
+        "capacidadDisponible": 6000
+      }
+    ],
+    "imagenPortada": "https://example.com/feria-libro-portada.jpg",
+    "imagenLocalidades": "https://example.com/feria-libro-localidades.jpg",
+    "tipo": "CULTURAL",
+    "estado": "ACTIVO"
+  },
+  {
+    "_id": ObjectId("670888be027cdf5cd2c6200d"),
+    "nombre": "Obra de Teatro Contemporáneo",
+    "descripcion": "Una obra de teatro contemporáneo dirigida por artistas locales.",
+    "ciudad": "Monterrey",
+    "direccion": "Teatro Municipal, Calle Zaragoza 450",
+    "fecha": new Date("2024-10-20T20:00:00Z"),
+    "localidades": [
+      {
+        "nombre": "General",
+        "precio": 40.00,
+        "capacidadMaxima": 2000,
+        "capacidadDisponible": 1200
+      }
+    ],
+    "imagenPortada": "https://example.com/teatro-contemporaneo-portada.jpg",
+    "imagenLocalidades": "https://example.com/teatro-contemporaneo-localidades.jpg",
+    "tipo": "TEATRO",
+    "estado": "INACTIVO"
+  },
+  {
+    "_id": ObjectId("670888c660b34ff4c9777915"),
+    "nombre": "Festival de Música Electrónica",
+    "descripcion": "Festival internacional de música electrónica con DJs de todo el mundo.",
+    "ciudad": "Tijuana",
+    "direccion": "Playa Central, Avenida Revolución 320",
+    "fecha": new Date("2024-11-05T18:00:00Z"),
+    "localidades": [
+      {
+        "nombre": "General",
+        "precio": 70.00,
+        "capacidadMaxima": 5000,
+        "capacidadDisponible": 3000
+      },
+      {
+        "nombre": "VIP",
+        "precio": 200.00,
+        "capacidadMaxima": 1000,
+        "capacidadDisponible": 700
+      }
+    ],
+    "imagenPortada": "https://example.com/festival-electronica-portada.jpg",
+    "imagenLocalidades": "https://example.com/festival-electronica-localidades.jpg",
+    "tipo": "FESTIVAL",
+    "estado": "ACTIVO"
+  },
+  {
+    "_id": ObjectId("670888ce3460da95cc69df75"),
+    "nombre": "Competencia de Esports",
+    "descripcion": "Torneo internacional de videojuegos con equipos de todo el mundo.",
+    "ciudad": "Querétaro",
+    "direccion": "Centro de Convenciones, Calle Hidalgo 100",
+    "fecha": new Date("2024-12-10T10:00:00Z"),
+    "localidades": [
+      {
+        "nombre": "General",
+        "precio": 25.00,
+        "capacidadMaxima": 3000,
+        "capacidadDisponible": 2000
+      },
+      {
+        "nombre": "VIP",
+        "precio": 100.00,
+        "capacidadMaxima": 500,
+        "capacidadDisponible": 300
+      }
+    ],
+    "imagenPortada": "https://example.com/esports-competencia-portada.jpg",
+    "imagenLocalidades": "https://example.com/esports-competencia-localidades.jpg",
+    "tipo": "DEPORTE",
+    "estado": "ACTIVO"
+  }
+]);
