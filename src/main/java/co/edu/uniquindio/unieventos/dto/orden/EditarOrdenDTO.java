@@ -12,7 +12,7 @@ public record EditarOrdenDTO(
         @NotBlank String id,
         @NotNull ObjectId idCuenta,
         @NotNull ObjectId idCupon,
-        @NotNull Pago pago,
+        @NotNull PagoDTO pago,
         @NotNull LocalDateTime fecha,
         @NotBlank String codigoQR,
         @NotNull List<DetalleOrdenDTO> items,

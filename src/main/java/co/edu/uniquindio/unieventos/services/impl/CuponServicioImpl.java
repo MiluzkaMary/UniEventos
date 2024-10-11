@@ -5,6 +5,7 @@ import co.edu.uniquindio.unieventos.dto.cupon.EditarCuponDTO;
 import co.edu.uniquindio.unieventos.dto.cupon.InformacionCuponDTO;
 import co.edu.uniquindio.unieventos.dto.cupon.ItemCuponDTO;
 import co.edu.uniquindio.unieventos.model.documents.Cupon;
+import co.edu.uniquindio.unieventos.model.enums.EstadoCuenta;
 import co.edu.uniquindio.unieventos.model.enums.EstadoCupon;
 import co.edu.uniquindio.unieventos.repositories.CuponRepo;
 import co.edu.uniquindio.unieventos.services.interfaces.CuponServicio;
@@ -87,6 +88,10 @@ public class CuponServicioImpl implements CuponServicio {
         // Buscar el cupón existente por ID
         Cupon cuponExistente = cuponRepo.findById(cuponId)
                 .orElseThrow(() -> new Exception("Cupón no encontrado"));
+
+        if (cuponExistente.getEstado() == EstadoCupon.NO_DISPONIBLE) {
+            throw new Exception("Cupon Eliminado");
+        }
 
         // Mapear los datos del cupón a un DTO de información de cupón
         return new InformacionCuponDTO(

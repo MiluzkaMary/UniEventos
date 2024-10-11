@@ -2,13 +2,14 @@ package co.edu.uniquindio.unieventos.dto.orden;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.bson.types.ObjectId;
 
 public record DetalleOrdenDTO(
-        @NotBlank String idProducto,
-        @NotBlank String idEvento,
-        @NotBlank String nombreLocalidad,
+        @NotBlank String id,
+        @NotBlank ObjectId idEvento,
         @NotNull int cantidad,
-        @NotNull double precioUnitario,
-        @NotNull double total
+        @NotBlank String nombreLocalidad,
+        @NotNull double total,
+        @NotNull double precioUnitario
 ) {
 }

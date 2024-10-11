@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public record CrearCarritoDTO(
-        @NotBlank String idCuenta,
+        @NotBlank ObjectId idCuenta,
         LocalDateTime fecha,
         @NotEmpty List<DetalleCarritoDTO> items
 ) {

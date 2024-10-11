@@ -1,0 +1,44 @@
+package co.edu.uniquindio.unieventos.services.impl;
+
+import co.edu.uniquindio.unieventos.dto.otros.EmailDTO;
+import co.edu.uniquindio.unieventos.services.interfaces.EmailServicio;
+import org.simplejavamail.api.email.Email;
+import org.simplejavamail.api.mailer.Mailer;
+import org.simplejavamail.api.mailer.config.TransportStrategy;
+import org.simplejavamail.email.EmailBuilder;
+import org.simplejavamail.mailer.MailerBuilder;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
+
+@Service
+public class EmailServicioImpl implements EmailServicio {
+
+
+    @Override
+    @Async
+    public void enviarCorreo(EmailDTO emailDTO) throws Exception {
+
+
+        Email email = EmailBuilder.startingBlank()
+                .from("AllVirtualTicket@gmail.com")
+                .to(emailDTO.getDestinatario())
+                .withSubject(emailDTO.getAsunto())
+                .withHTMLText(emailDTO.getCuerpo())
+                .buildEmail();
+
+
+        try (Mailer mailer = MailerBuilder
+                .withSMTPServer("smtp.gmail.com", 587, "allvirtualticket@gmail.com", "dtmu kgsd bsts vtby")
+                .withTransportStrategy(TransportStrategy.SMTP_TLS)
+                .withDebugLogging(true)
+                .buildMailer()) {
+
+
+            mailer.sendMail(email);
+        }
+
+
+    }
+
+
+}

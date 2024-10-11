@@ -6,6 +6,7 @@ import co.edu.uniquindio.unieventos.dto.evento.EditarEventoDTO;
 import co.edu.uniquindio.unieventos.dto.evento.InformacionEventoDTO;
 import co.edu.uniquindio.unieventos.dto.evento.ItemEventoDTO;
 import co.edu.uniquindio.unieventos.model.documents.Evento;
+import co.edu.uniquindio.unieventos.model.enums.EstadoCuenta;
 import co.edu.uniquindio.unieventos.model.enums.EstadoEvento;
 import co.edu.uniquindio.unieventos.model.vo.DetalleCarrito;
 import co.edu.uniquindio.unieventos.model.vo.Localidad;
@@ -103,6 +104,11 @@ public class EventoServicioImpl implements EventoServicio {
         // Buscar el evento existente por ID
         Evento eventoExistente = eventoRepo.findById(Id)
                 .orElseThrow(() -> new Exception("Evento no encontrado"));
+
+        // Verificar si la cuenta tiene el estado ELIMINADO
+        if (eventoExistente.getEstado() == EstadoEvento.INACTIVO) {
+            throw new Exception("Evento Eliminado");
+        }
 
         // Mapear los datos del evento a un DTO de información de evento
         return new InformacionEventoDTO(

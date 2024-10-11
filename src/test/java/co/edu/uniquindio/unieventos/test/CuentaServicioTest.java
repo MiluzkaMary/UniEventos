@@ -1,9 +1,6 @@
 package co.edu.uniquindio.unieventos.test;
 
-import co.edu.uniquindio.unieventos.dto.cuenta.CrearCuentaDTO;
-import co.edu.uniquindio.unieventos.dto.cuenta.EditarCuentaDTO;
-import co.edu.uniquindio.unieventos.dto.cuenta.InformacionCuentaDTO;
-import co.edu.uniquindio.unieventos.dto.cuenta.UsuarioDTO;
+import co.edu.uniquindio.unieventos.dto.cuenta.*;
 import co.edu.uniquindio.unieventos.model.enums.EstadoCuenta;
 import co.edu.uniquindio.unieventos.model.enums.Rol;
 import org.junit.jupiter.api.Test;
@@ -12,6 +9,7 @@ import co.edu.uniquindio.unieventos.services.interfaces.CuentaServicio;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,16 +24,16 @@ public class CuentaServicioTest {
     public void crearCuentaTest() {
 
         UsuarioDTO crearUsuarioDTO = new UsuarioDTO(
-                "123",
-                "Pepito perez",
-                "123456",
-                "avenida 1");
+                "12121",
+                "Mary Saire",
+                "1929109",
+                "Av 19");
         // Crear un DTO con los datos para crear una nueva cuenta
         CrearCuentaDTO crearCuentaDTO = new CrearCuentaDTO(
-                "pepitoperez2@email.com",
-                "password",
+                "mary512@gmail.com",
+                "23828",
                 Rol.CLIENTE,
-                LocalDateTime.now(),
+                LocalDateTime.now().minusYears(23),
                 crearUsuarioDTO);
 
         // Se espera que no se lance ninguna excepción
@@ -53,18 +51,18 @@ public class CuentaServicioTest {
 
 
         //Se define el id de la cuenta del usuario a actualizar, este id está en el dataset.js
-        String idCuenta = "6708905d44c3e0456083e6e1";
+        String idCuenta = "67090e11974f3c6c277266e0";
 
         UsuarioDTO usuarioDTO= new UsuarioDTO(
-                "nueva ced",
-                "nuv nom",
-                "nuv tel",
-                "nuv dir"
+                "Nueva cedula",
+                "Nuevo nombre",
+                "Nuevo tlfn",
+                "Nueva direc"
         );
         //Se crea un objeto de tipo EditarCuentaDTO
         EditarCuentaDTO editarCuentaDTO = new EditarCuentaDTO(
                 idCuenta,
-                "pepitoperez2@email.com",
+                "prueba@email.com",
                 "nueva password",
                 usuarioDTO,
                 EstadoCuenta.INACTIVO
@@ -82,16 +80,46 @@ public class CuentaServicioTest {
 
 
             //Se verifica que la dirección del usuario sea la actualizada
-            assertEquals("nuv dir", detalle.usuario().getDireccion());
-            assertEquals("nueva ced", detalle.usuario().getCedula());
-            assertEquals("nuv nom", detalle.usuario().getNombre());
-            assertEquals("nuv tel", detalle.usuario().getTelefono());
+            assertEquals("Nueva direc", detalle.usuario().getDireccion());
+            assertEquals("Nueva cedula", detalle.usuario().getCedula());
+            assertEquals("Nuevo nombre", detalle.usuario().getNombre());
+            assertEquals("Nuevo tlfn", detalle.usuario().getTelefono());
             assertEquals("pepitoperez2@email.com", detalle.correo());
             assertEquals(EstadoCuenta.INACTIVO, detalle.estado());
 
         });
     }
 
-              
+    @Test
+    public void eliminarCuentaTest(){
+
+
+        //Se define el id de la cuenta del usuario a eliminar, este id está en el dataset.js
+        String idCuenta = "67090c759fd294640cd09d44";
+
+
+        //Se elimina (cambia el estado) de la cuenta del usuario con el id definido
+        assertDoesNotThrow(() -> cuentaServicio.eliminarCuenta(idCuenta) );
+
+
+        //Al intentar obtener la cuenta del usuario con el id definido se debe lanzar una excepción
+        assertThrows(Exception.class, () -> cuentaServicio.obtenerInformacionCuenta(idCuenta) );
+    }
+
+
+    @Test
+    public void listarTest(){
+        //Se obtiene la lista de las cuentas de los usuarios
+        List<ItemCuentaDTO> lista = cuentaServicio.listarCuentas();
+
+        // Se imprime la lista de cuentas para ver sus detalles
+        lista.forEach(cuenta -> System.out.println("Cuenta: " + cuenta));
+
+        //Se verifica que la lista no sea nula y que tenga 3 elementos (o los que hayan)
+        assertEquals(8, lista.size());
+    }
+
+
+
 
 }

@@ -37,8 +37,8 @@ public class OrdenTest {
                 .codigoQR("QR123456")
                 .items(Collections.singletonList(
                         DetalleOrden.builder()
-                                .id(new ObjectId().toString())
-                                .idEvento(new ObjectId().toString())
+                                .id("001")
+                                .idEvento(new ObjectId("66e2047ffe1c6311babc5b8c"))
                                 .cantidad(2)
                                 .nombreLocalidad("Localidad A")
                                 .precio(80.0)

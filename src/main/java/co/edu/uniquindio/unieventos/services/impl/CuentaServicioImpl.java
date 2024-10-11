@@ -5,12 +5,14 @@ import co.edu.uniquindio.unieventos.dto.cuenta.EditarCuentaDTO;
 import co.edu.uniquindio.unieventos.dto.cuenta.InformacionCuentaDTO;
 import co.edu.uniquindio.unieventos.dto.cuenta.UsuarioDTO;
 import co.edu.uniquindio.unieventos.dto.cuenta.ItemCuentaDTO;
+import co.edu.uniquindio.unieventos.dto.otros.EmailDTO;
 import co.edu.uniquindio.unieventos.model.documents.Cuenta;
 import co.edu.uniquindio.unieventos.model.enums.EstadoCuenta;
 import co.edu.uniquindio.unieventos.model.enums.Rol;
 import co.edu.uniquindio.unieventos.model.vo.Usuario;
 import co.edu.uniquindio.unieventos.repositories.CuentaRepo;
 import co.edu.uniquindio.unieventos.services.interfaces.CuentaServicio;
+import co.edu.uniquindio.unieventos.services.interfaces.EmailServicio;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,8 @@ import java.util.List;
 public class CuentaServicioImpl implements CuentaServicio {
 
     private final CuentaRepo cuentaRepo;
+
+    private final EmailServicio emailServicio;
 
     @Override
     public String crearCuenta(CrearCuentaDTO cuenta) throws Exception {
@@ -58,6 +62,17 @@ public class CuentaServicioImpl implements CuentaServicio {
 
         // Guardar la cuenta en la base de datos
         Cuenta cuentaCreada = cuentaRepo.save(nuevaCuenta);
+
+
+        //BIENVENIDA
+        EmailDTO email = new EmailDTO(
+                "¡Bienvenido a UniEventos "+cuenta.usuario().nombre()+"!",
+                "Hola " + cuenta.usuario().nombre() + ", ¡Tu información personal fue guardada en nuestra base de datos, ten una calida bienvenida a AVT!",
+                cuenta.correo()
+        );
+
+        emailServicio.enviarCorreo(email);
+
         return cuentaCreada.getId();
     }
 
@@ -101,13 +116,23 @@ public class CuentaServicioImpl implements CuentaServicio {
         Cuenta cuentaExistente = cuentaRepo.findById(id)
                 .orElseThrow(() -> new Exception("Cuenta no encontrada"));
 
+        // Verificar si la cuenta tiene el estado ELIMINADO
+        if (cuentaExistente.getEstado() == EstadoCuenta.ELIMINADO) {
+            System.out.println("Cuenta eliminada, lanzando excepción...");
+            throw new Exception("Cuenta Eliminada");
+
+        }
+
         // Mapear los datos de la cuenta a un DTO de información de cuenta
         InformacionCuentaDTO informacionCuenta = new InformacionCuentaDTO(
-                cuentaExistente.getId(), cuentaExistente.getCorreo(), cuentaExistente.getUsuario(),
+                cuentaExistente.getId(),
+                cuentaExistente.getCorreo(),
+                cuentaExistente.getUsuario(),
                 cuentaExistente.getEstado());
 
         return informacionCuenta;
     }
+
 
     @Override
     public List<ItemCuentaDTO> listarCuentas() {

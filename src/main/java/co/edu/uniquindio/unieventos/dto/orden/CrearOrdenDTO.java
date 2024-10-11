@@ -11,7 +11,7 @@ import java.util.List;
 public record CrearOrdenDTO(
         @NotNull ObjectId idCuenta,
         @NotNull ObjectId idCupon,
-        @NotNull Pago pago,
+        @NotNull PagoDTO pago,
         @NotNull LocalDateTime fecha,
         @NotBlank String codigoQR,
         @NotNull List<DetalleOrdenDTO> items,

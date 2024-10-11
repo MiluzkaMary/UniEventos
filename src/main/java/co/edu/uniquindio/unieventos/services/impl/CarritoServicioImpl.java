@@ -23,13 +23,13 @@ public class CarritoServicioImpl implements CarritoServicio {
     @Override
     public String crearCarrito(CrearCarritoDTO carritoDTO) throws Exception {
         // Verificar si ya existe un carrito para la cuenta
-        if (existeCarritoPorCuenta(new ObjectId(carritoDTO.idCuenta()))) {
+        if (existeCarritoPorCuenta(carritoDTO.idCuenta())) {
             throw new Exception("Ya existe un carrito para esta cuenta.");
         }
 
         // Crear un nuevo carrito utilizando DetalleCarritoDTO
         Carrito nuevoCarrito = Carrito.builder()
-                .idCuenta(new ObjectId(carritoDTO.idCuenta()))  // Asignar ID de cuenta
+                .idCuenta(carritoDTO.idCuenta())  // Asignar ID de cuenta
                 .fecha(carritoDTO.fecha() != null ? carritoDTO.fecha() : LocalDateTime.now()) // Fecha actual o proporcionada
                 .items(carritoDTO.items().stream()
                         .map(detalle -> new DetalleCarrito(

@@ -1,6 +1,7 @@
 package co.edu.uniquindio.unieventos.services.impl;
 
 import co.edu.uniquindio.unieventos.dto.orden.*;
+import co.edu.uniquindio.unieventos.model.documents.Cuenta;
 import co.edu.uniquindio.unieventos.model.documents.Orden;
 import co.edu.uniquindio.unieventos.model.vo.DetalleOrden;
 import co.edu.uniquindio.unieventos.model.vo.Pago;
@@ -23,10 +24,7 @@ public class OrdenServicioImpl implements OrdenServicio {
 
     @Override
     public String crearOrden(CrearOrdenDTO ordenDTO) throws Exception {
-        // Verificar si ya existe una orden para la cuenta
-        if (existeOrdenPorCuentaId(ordenDTO.idCuenta())) {
-            throw new Exception("Ya existe una orden para esta cuenta.");
-        }
+
 
         // Verificar si ya existe una orden con el mismo código QR
         if (existeOrdenPorCodigoQR(ordenDTO.codigoQR())) {
@@ -37,23 +35,26 @@ public class OrdenServicioImpl implements OrdenServicio {
         Orden nuevaOrden = Orden.builder()
                 .idCuenta(ordenDTO.idCuenta())  // Asignar ID de cuenta
                 .idCupon(ordenDTO.idCupon() != null ? ordenDTO.idCupon() : null) // Asignar ID de cupón si existe
-                .pago(ordenDTO.pago())          // Mapear pago desde DTO
+                .pago(new Pago (ordenDTO.pago().fecha(), ordenDTO.pago().total(), ordenDTO.pago().estadoPago(), ordenDTO.pago().metodoPago()))          // Mapear pago desde DTO
                 .fecha(ordenDTO.fecha() != null ? ordenDTO.fecha() : LocalDateTime.now()) // Fecha actual o proporcionada
                 .codigoQR(ordenDTO.codigoQR())  // Código QR de la orden
                 .items(ordenDTO.items().stream() // Mapear los detalles a la entidad DetalleOrden
                         .map(detalle -> new DetalleOrden(
-                                detalle.idProducto(),           // ID del producto o evento
+                                detalle.id(),           // ID del producto o evento
                                 detalle.idEvento(),           // ID del evento
                                 detalle.cantidad(),             // Cantidad de productos
                                 detalle.nombreLocalidad(),       // Nombre de la localidad o producto
-                                detalle.precioUnitario(),       // Precio unitario
-                                detalle.total()))               // Total del detalle
+                                detalle.total(),
+                                detalle.precioUnitario()))
                         .toList())               // Convertir a lista de DetalleOrden
                 .total(ordenDTO.total())         // Asignar el total de la orden
                 .build();
 
         // Guardar la orden en la base de datos
         Orden ordenCreada = ordenRepo.save(nuevaOrden);
+
+
+
         return ordenCreada.getId(); // Retornar el ID de la orden creada
     }
 
@@ -67,17 +68,18 @@ public class OrdenServicioImpl implements OrdenServicio {
         // Actualizar los atributos de la orden existente
         ordenExistente.setIdCuenta(ordenDTO.idCuenta());
         ordenExistente.setIdCupon(ordenDTO.idCupon() != null ? ordenDTO.idCupon() : null);
-        ordenExistente.setPago(ordenDTO.pago());
+        ordenExistente.setPago(new Pago (ordenDTO.pago().fecha(), ordenDTO.pago().total(), ordenDTO.pago().estadoPago(), ordenDTO.pago().metodoPago()));
         ordenExistente.setFecha(ordenDTO.fecha());
         ordenExistente.setCodigoQR(ordenDTO.codigoQR());
         ordenExistente.setItems(ordenDTO.items().stream()
                 .map(detalle -> new DetalleOrden(
-                        detalle.idProducto(),       // ID del producto o evento
+                        detalle.id(),       // ID del producto o evento
                         detalle.idEvento(),       // ID del evento
                         detalle.cantidad(),         // Cantidad de productos
                         detalle.nombreLocalidad(),   // Nombre del producto o localidad
-                        detalle.precioUnitario(),   // Precio unitario
-                        detalle.total()))           // Total del detalle
+                        detalle.total(),
+                        detalle.precioUnitario()   // Precio unitario
+                        ))
                 .toList());
         ordenExistente.setTotal(ordenDTO.total());
 
@@ -138,10 +140,10 @@ public class OrdenServicioImpl implements OrdenServicio {
                                 .map(detalle -> new DetalleOrdenDTO(
                                         detalle.getId(),          // ID del detalle
                                         detalle.getIdEvento(),
-                                        detalle.getNombreLocalidad(),// ID del evento
-                                        detalle.getCantidad(),    // Cantidad del producto
-                                        detalle.getPrecioUnitario(), // Precio unitario
-                                        detalle.getPrecio())) // Total calculado
+                                        detalle.getCantidad(),
+                                        detalle.getNombreLocalidad(),
+                                        detalle.getPrecio(),
+                                        detalle.getPrecioUnitario()))
                                 .toList(),                       // Convertir a lista de DetalleOrdenDTO
                         orden.getTotal()                         // Total de la orden
                 ))
