@@ -73,6 +73,15 @@ public class CuentaServicioImpl implements CuentaServicio {
 
         emailServicio.enviarCorreo(email);
 
+        //CODIGO DE VERIFICACION
+        email=new EmailDTO(
+                "Codigo de Verificacion de cuenta",
+                "Enviamos el codigo para poder verificar su cuenta"+"\n Codigo:  "+emailServicio.generarCodigoCuenta(),
+                cuenta.correo()
+        );
+
+        emailServicio.enviarCorreo(email);
+
         return cuentaCreada.getId();
     }
 
@@ -95,6 +104,16 @@ public class CuentaServicioImpl implements CuentaServicio {
 
         // Guardar la cuenta actualizada en la base de datos
         cuentaRepo.save(cuentaExistente);
+
+        //NOTIFICACION
+        EmailDTO email = new EmailDTO(
+                "Modificacion de datos",
+                "Hola " + cuenta.usuario().nombre() + ", Tu información personal fue editada en nuestra base de datos",
+                cuenta.correo()
+        );
+
+        emailServicio.enviarCorreo(email);
+
     }
 
     @Override
@@ -106,8 +125,17 @@ public class CuentaServicioImpl implements CuentaServicio {
         // Asignar el estado ELIMINADO a la cuenta
         cuentaExistente.setEstado(EstadoCuenta.ELIMINADO);
 
+        //NOTIFICACION
+        EmailDTO email = new EmailDTO(
+                "Eliminacion de cuenta",
+                "Hola " + cuentaExistente.getUsuario().getNombre() + ", Te informamos que hemos eliminado tu cuenta",
+                cuentaExistente.getCorreo()
+        );
+        emailServicio.enviarCorreo(email);
         // Guardar los cambios en la base de datos (actualiza el registro existente)
         cuentaRepo.save(cuentaExistente);
+
+
     }
 
     @Override

@@ -40,5 +40,25 @@ public class EmailServicioImpl implements EmailServicio {
 
     }
 
+    public String generarCodigoCuenta(){
+        String codigo="";
+        int bajo=65;
+        int alto=90;
+        String valor="";
+        for (int i=0;i<6;i++){
+            int r= (int) (Math.random()*(1+alto-bajo)+bajo);
+            System.out.println("\nel numero es: "+r);
+            char c= (char)r;
+            System.out.println("\nel caracter es: "+c);
+            valor=c+"";
+            if(Math.random()>0.6){
+                valor=valor.toLowerCase();
+            }
+            codigo+=valor;
+        }
+        System.out.println("el codigo es: "+codigo);
+    return codigo;
+    }
+
 
 }
