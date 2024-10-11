@@ -22,7 +22,8 @@ public class CuentaServicioTest {
     @Test
     public void crearCuentaTest(){
 
-        UsuarioDTO crearUsuarioDTO = new UsuarioDTO("123",
+        UsuarioDTO crearUsuarioDTO = new UsuarioDTO(
+                "123",
                 "Pepito perez",
                 "123456",
                 "avenida 1");
