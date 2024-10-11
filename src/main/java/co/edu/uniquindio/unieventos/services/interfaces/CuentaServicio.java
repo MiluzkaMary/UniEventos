@@ -1,9 +1,7 @@
 package co.edu.uniquindio.unieventos.services.interfaces;
 
-import co.edu.uniquindio.unieventos.dto.cuenta.CrearCuentaDTO;
-import co.edu.uniquindio.unieventos.dto.cuenta.EditarCuentaDTO;
-import co.edu.uniquindio.unieventos.dto.cuenta.InformacionCuentaDTO;
-import co.edu.uniquindio.unieventos.dto.cuenta.ItemCuentaDTO;
+import co.edu.uniquindio.unieventos.dto.cuenta.*;
+import co.edu.uniquindio.unieventos.dto.otros.TokenDTO;
 
 
 import java.util.List;
@@ -16,9 +14,13 @@ public interface CuentaServicio {
 
     void eliminarCuenta(String id) throws Exception;
 
+
+
     InformacionCuentaDTO obtenerInformacionCuenta(String id) throws Exception;
 
     List<ItemCuentaDTO> listarCuentas();
+
+    TokenDTO iniciarSesion(LoginDTO loginDTO) throws Exception;
 
 
 }
