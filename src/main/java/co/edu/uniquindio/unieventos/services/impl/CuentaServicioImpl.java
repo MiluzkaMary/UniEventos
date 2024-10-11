@@ -76,6 +76,7 @@ public class CuentaServicioImpl implements CuentaServicio {
                 cuenta.usuario().nombre(),
                 cuenta.usuario().telefono(),
                 cuenta.usuario().direccion()));
+        cuentaExistente.setEstado(cuenta.estado());
 
         // Guardar la cuenta actualizada en la base de datos
         cuentaRepo.save(cuentaExistente);
