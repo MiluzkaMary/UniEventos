@@ -10,6 +10,6 @@ public record EditarCuentaDTO(
         @NotBlank String id,
         @NotBlank @Email @Length(max = 50) String correo,
         @NotBlank @Length(min = 8, max = 20) String password,
-        @NotNull UsuarioDTO usuario,  // Incluir UsuarioDTO para la edición
+        @NotNull UsuarioDTO usuario,
         EstadoCuenta estado
 ) {}

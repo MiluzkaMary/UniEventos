@@ -58,7 +58,7 @@ public class OrdenTest {
     @Test
     public void actualizarTest() {
         // Obtener la orden por id
-        Orden orden = ordenRepo.findById("xxx").orElseThrow();
+        Orden orden = ordenRepo.findById("67123ac1049eabf334b62c3b").orElseThrow();
         // Modificar el total de la orden
         orden.setTotal(200.0);
 
@@ -66,7 +66,7 @@ public class OrdenTest {
         ordenRepo.save(orden);
 
         // Obtener la orden actualizada
-        Orden ordenActualizada = ordenRepo.findById("xxx").orElseThrow();
+        Orden ordenActualizada = ordenRepo.findById("67123ac1049eabf334b62c3b").orElseThrow();
 
         // Verificar actualización
         assertEquals(200.0, ordenActualizada.getTotal());
@@ -85,10 +85,10 @@ public class OrdenTest {
     @Test
     public void eliminarTest() {
         // Borrar orden con id
-        ordenRepo.deleteById("xxx");
+        ordenRepo.deleteById("67123ac1049eabf334b62c3b");
 
         // Obtener la orden eliminada
-        Orden orden = ordenRepo.findById("xxx").orElse(null);
+        Orden orden = ordenRepo.findById("67123ac1049eabf334b62c3b").orElse(null);
 
         // Verificar que es null
         assertNull(orden);

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
 public class AutenticacionController {
-    private CuentaServicio cuentaServicio;
+    private final CuentaServicio cuentaServicio;
 
     @PostMapping("/iniciar-sesion")
     public ResponseEntity<MensajeDTO<TokenDTO>> iniciarSesion(@Valid @RequestBody LoginDTO loginDTO) throws Exception{

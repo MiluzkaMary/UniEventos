@@ -321,120 +321,146 @@ db.ordenes.insertMany([
     "idCuenta": ObjectId("670883a280993b6853af632e"),  // Juan Pérez
     "idCupon": ObjectId("671234a28b8c9b7d4e19ef45"),   // Cupon DESC50
     "pago": {
+      "codigo": "pago123",
       "fecha": new Date("2024-09-02T15:30:00Z"),
-      "totalPago": 175.00,
       "estado": "COMPLETADO",
-      "metodoPago": "Stripe"  // Usando el enum Pasarela
+      "detalleEstado": "Pago exitoso",
+      "metodoPago": "STRIPE",
+      "moneda": "USD",
+      "codigoAutorizacion": "auth123456",
+      "totalPago": 175.00
     },
     "fecha": new Date("2024-09-02T15:30:00Z"),
     "codigoQR": "qr1234567890",
     "items": [
       {
-        "id": ObjectId("67088e93d148aec6a26f41f3"),
+        "id": "item123",
         "idEvento": ObjectId("670888ac9f284d853da91226"), // Concierto de Rock
         "cantidad": 2,
         "nombreLocalidad": "VIP",
-        "precio": 150.00,
-        "precioUnitario": 75.00
+        "precioUnitario": 75.00,
+        "precio": 150.00
       }
     ],
-    "total": 175.00
+    "total": 175.00,
+    "codigoPasarela": "pasarelaXYZ"
   },
   {
     "_id": ObjectId("67123ac1049eabf334b62c3b"),
     "idCuenta": ObjectId("670884ae3dd28a6ea935f6c0"),  // Carlos Gómez
     "idCupon": ObjectId("671234b8c9d849f64713e920"),   // Cupon VIPONLY10
     "pago": {
+      "codigo": "pago456",
       "fecha": new Date("2024-10-11T13:00:00Z"),
-      "totalPago": 108.00,
       "estado": "COMPLETADO",
-      "metodoPago": "PayPal"  // Usando el enum Pasarela
+      "detalleEstado": "Pago procesado",
+      "metodoPago": "PAYPAL",
+      "moneda": "USD",
+      "codigoAutorizacion": "auth987654",
+      "totalPago": 108.00
     },
     "fecha": new Date("2024-10-11T13:00:00Z"),
     "codigoQR": "qr2345678901",
     "items": [
       {
-        "id": ObjectId("67088eda7b309895d57507b2"),
+        "id": "item456",
         "idEvento": ObjectId("670888be027cdf5cd2c6200d"), // Obra de Teatro Contemporáneo
         "cantidad": 3,
         "nombreLocalidad": "General",
-        "precio": 40.00,
-        "precioUnitario": 36.00
+        "precioUnitario": 36.00,
+        "precio": 108.00
       }
     ],
-    "total": 108.00
+    "total": 108.00,
+    "codigoPasarela": "pasarelaABC"
   },
   {
     "_id": ObjectId("67123af578c85c3236e98a45"),
     "idCuenta": ObjectId("670884cd6034c523d286c3df"),  // Ana Castillo
     "idCupon": ObjectId("671234e76a8f1eab9d71b024"),   // Cupon EXTRA5
     "pago": {
+      "codigo": "pago789",
       "fecha": new Date("2024-11-16T12:00:00Z"),
-      "totalPago": 280.00,
       "estado": "COMPLETADO",
-      "metodoPago": "PayU"  // Usando el enum Pasarela
+      "detalleEstado": "Pago confirmado",
+      "metodoPago": "PAYU",
+      "moneda": "COP",
+      "codigoAutorizacion": "auth654321",
+      "totalPago": 280.00
     },
     "fecha": new Date("2024-11-16T12:00:00Z"),
     "codigoQR": "qr3456789012",
     "items": [
       {
-        "id": ObjectId("67088eed6f2b05f324123c8c"),
+        "id": "item789",
         "idEvento": ObjectId("670888c660b34ff4c9777915"), // Festival de Música Electrónica
         "cantidad": 4,
         "nombreLocalidad": "General",
-        "precio": 70.00,
-        "precioUnitario": 66.50
+        "precioUnitario": 66.50,
+        "precio": 266.00
       }
     ],
-    "total": 280.00
+    "total": 280.00,
+    "codigoPasarela": "pasarelaDEF"
   },
   {
     "_id": ObjectId("67123b1d923fb8f23745b1a3"),
     "idCuenta": ObjectId("6708848686a3e9dd976e4094"),  // María López
     "idCupon": ObjectId("671234cd8d2a345bc9234f12"),   // Cupon WELCOME15
     "pago": {
+      "codigo": "pago101",
       "fecha": new Date("2024-12-06T14:50:00Z"),
-      "totalPago": 85.00,
       "estado": "PENDIENTE",
-      "metodoPago": "MercadoPago"  // Usando el enum Pasarela
+      "detalleEstado": "A la espera del pago",
+      "metodoPago": "MERCADOPAGO",
+      "moneda": "ARS",
+      "codigoAutorizacion": "auth123789",
+      "totalPago": 85.00
     },
     "fecha": new Date("2024-12-06T14:50:00Z"),
     "codigoQR": "qr4567890123",
     "items": [
       {
-        "id": ObjectId("67088f0955ffcd0882571cca"),
+        "id": "item101",
         "idEvento": ObjectId("670888ac9f284d853da91226"), // Concierto de Rock
         "cantidad": 1,
         "nombreLocalidad": "General",
-        "precio": 50.00,
-        "precioUnitario": 42.50
+        "precioUnitario": 42.50,
+        "precio": 42.50
       }
     ],
-    "total": 85.00
+    "total": 85.00,
+    "codigoPasarela": "pasarelaGHI"
   },
   {
     "_id": ObjectId("67123b4f5f8234521c39ad56"),
     "idCuenta": ObjectId("670884db59c417da9e97da6a"),  // Pedro Martínez
     "idCupon": ObjectId("671234fa4dfec8c456128c35"),   // Cupon SUMMER20
     "pago": {
+      "codigo": "pago202",
       "fecha": new Date("2024-11-21T18:30:00Z"),
-      "totalPago": 320.00,
       "estado": "COMPLETADO",
-      "metodoPago": "ePayco"  // Usando el enum Pasarela
+      "detalleEstado": "Pago finalizado",
+      "metodoPago": "EPAYCO",
+      "moneda": "COP",
+      "codigoAutorizacion": "auth456789",
+      "totalPago": 320.00
     },
     "fecha": new Date("2024-11-21T18:30:00Z"),
     "codigoQR": "qr5678901234",
     "items": [
       {
-        "id": ObjectId("67088f2ef8542c4d18c0ef00"),
+        "id": "item202",
         "idEvento": ObjectId("670888c660b34ff4c9777915"), // Festival de Música Electrónica
         "cantidad": 2,
         "nombreLocalidad": "VIP",
-        "precio": 200.00,
-        "precioUnitario": 160.00
+        "precioUnitario": 160.00,
+        "precio": 320.00
       }
     ],
-    "total": 320.00
+    "total": 320.00,
+    "codigoPasarela": "pasarelaJKL"
   }
 ]);
+
 

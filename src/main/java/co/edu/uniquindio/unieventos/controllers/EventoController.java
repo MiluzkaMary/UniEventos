@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/evento")
 public class EventoController {
-    EventoServicio eventoServicio;
+    private final EventoServicio eventoServicio;
 
     @PostMapping("/crear-evento")
     public ResponseEntity<MensajeDTO<String>> crearEvento(@Valid @RequestBody CrearEventoDTO eventoDTO) throws Exception {

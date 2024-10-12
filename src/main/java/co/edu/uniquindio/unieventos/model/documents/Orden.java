@@ -31,7 +31,8 @@ public class Orden {
     private String codigoPasarela;
 
     @Builder
-    public Orden(ObjectId idCuenta, ObjectId idCupon, Pago pago, LocalDateTime fecha, String codigoQR, List<DetalleOrden> items, double total, String codigoPasarela) {
+    public Orden(ObjectId idCuenta, ObjectId idCupon, Pago pago, LocalDateTime fecha,
+                 String codigoQR, List<DetalleOrden> items, double total, String codigoPasarela) {
 
         this.idCuenta = idCuenta;
         this.idCupon = idCupon;
