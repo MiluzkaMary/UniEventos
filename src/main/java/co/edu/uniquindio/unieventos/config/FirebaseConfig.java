@@ -16,14 +16,9 @@ public class FirebaseConfig {
 
     @Bean
     public FirebaseApp intializeFirebase() throws IOException {
-        /**
-         * FileInputStream serviceAccount = new FileInputStream(
-         *                 "src/main/resources/unieventos-8bf9a-firebase-adminsdk-vavvo-348020213a.json"
-         *         );
-         */
-
-        InputStream serviceAccount = getClass().getClassLoader().getResourceAsStream("unieventos-8bf9a-firebase-adminsdk-vavvo-348020213a.json");
-
+        FileInputStream serviceAccount = new FileInputStream(
+                "src/main/resources/unieventos-8bf9a-firebase-adminsdk-vavvo-348020213a.json"
+        );
 
 
         FirebaseOptions options = FirebaseOptions.builder()
@@ -38,7 +33,7 @@ public class FirebaseConfig {
 
 
         return null;
-    }
+}
 
 
 }
